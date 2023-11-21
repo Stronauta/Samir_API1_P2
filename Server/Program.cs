@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Samir_API1_P2.Server.DAL;
 
 namespace Samir_API1_P2
 {
@@ -12,6 +14,8 @@ namespace Samir_API1_P2
 
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddRazorPages();
+			var ConStr = builder.Configuration.GetConnectionString("ConStr");
+			builder.Services.AddDbContext<VentasContext>(options => options.UseSqlite(ConStr));
 
 			var app = builder.Build();
 
