@@ -14,5 +14,6 @@ namespace Samir_API1_P2.Shared
 		public int ventasDetailId { get; set; }
 		[ForeignKey("VentaId")]
 		public int VentaId { get; set; }
+		public int cobrado { get; set; }
 	}
 }
