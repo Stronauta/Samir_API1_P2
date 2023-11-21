@@ -86,15 +86,15 @@ namespace Samir_API1_P2.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Clientes>> PostClientes(Clientes clientes)
         {
-			if (clientes.ClienteId <= 0 || !ClientesExists(clientes.ClienteId))
-			{
-				_context.Clientes.Add(clientes);
-			}
+          if (_context.Clientes == null)
+          {
+              return Problem("Entity set 'VentasContext.Clientes'  is null.");
+          }
+            _context.Clientes.Add(clientes);
+            await _context.SaveChangesAsync();
 
-			await _context.SaveChangesAsync();
-
-			return Ok(clientes);
-		}
+            return CreatedAtAction("GetClientes", new { id = clientes.ClienteId }, clientes);
+        }
 
         // DELETE: api/Clientes/5
         [HttpDelete("{id}")]

@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace Samir_API1_P2.Shared
 {
-	public class VentasDetalles
+	public class Cobros
 	{
 		[Key]
-		public int ventasDetailId { get; set; }
-		[ForeignKey("VentaId")]
-		public int VentaId { get; set; }
-		public int cobrado { get; set; }
+		public int CobroId { get; set; }
+		public string? Observaciones { get; set; } = string.Empty;
+
+		[ForeignKey("EntradaId")]
+		public ICollection<CobrosDetalle> CobradoDetail { get; set; } = new List<CobrosDetalle>();
 	}
 }

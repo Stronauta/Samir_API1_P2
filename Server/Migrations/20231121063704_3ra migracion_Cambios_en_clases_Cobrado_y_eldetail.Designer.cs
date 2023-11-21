@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Samir_API1_P2.Server.DAL;
 
@@ -10,9 +11,11 @@ using Samir_API1_P2.Server.DAL;
 namespace Samir_API1_P2.Server.Migrations
 {
     [DbContext(typeof(VentasContext))]
-    partial class VentasContextModelSnapshot : ModelSnapshot
+    [Migration("20231121063704_3ra migracion_Cambios_en_clases_Cobrado_y_eldetail")]
+    partial class _3ramigracion_Cambios_en_clases_Cobrado_y_eldetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
@@ -47,45 +50,6 @@ namespace Samir_API1_P2.Server.Migrations
                             ClienteId = 3,
                             Nombres = "PRESTAMOS CEFIPROD"
                         });
-                });
-
-            modelBuilder.Entity("Samir_API1_P2.Shared.Cobros", b =>
-                {
-                    b.Property<int>("CobroId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Observaciones")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CobroId");
-
-                    b.ToTable("Cobros");
-                });
-
-            modelBuilder.Entity("Samir_API1_P2.Shared.CobrosDetalle", b =>
-                {
-                    b.Property<int>("CobradoDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CobradoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("EntradaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("VentaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("montoCobrado")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("CobradoDetailId");
-
-                    b.HasIndex("EntradaId");
-
-                    b.ToTable("CobrosDetalle");
                 });
 
             modelBuilder.Entity("Samir_API1_P2.Shared.Ventas", b =>
@@ -159,18 +123,6 @@ namespace Samir_API1_P2.Server.Migrations
                             Fecha = new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Monto = 2900.0
                         });
-                });
-
-            modelBuilder.Entity("Samir_API1_P2.Shared.CobrosDetalle", b =>
-                {
-                    b.HasOne("Samir_API1_P2.Shared.Cobros", null)
-                        .WithMany("CobradoDetail")
-                        .HasForeignKey("EntradaId");
-                });
-
-            modelBuilder.Entity("Samir_API1_P2.Shared.Cobros", b =>
-                {
-                    b.Navigation("CobradoDetail");
                 });
 #pragma warning restore 612, 618
         }

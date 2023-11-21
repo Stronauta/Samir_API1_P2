@@ -15,8 +15,8 @@ namespace Samir_API1_P2.Shared
 		public int ClienteId { get; set; }
 		public double Monto { get; set; }
 		public double Balance { get; set; }
-		public string? Observaciones { get; set; }
 
-		public ICollection<VentasDetalles> ventasDetalles { get; set; } = new List<VentasDetalles>();
+
+
 	}
 }
