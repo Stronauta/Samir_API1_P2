@@ -40,10 +40,10 @@ namespace Samir_API1_P2.Server.Controllers
           {
               return NotFound();
           }
-			var cobros = await _context.Cobros
-				.Include(e => e.CobradoDetail)
-				.Where(e => e.CobroId == id)
-				.FirstOrDefaultAsync();
+			 var cobros = await _context.Cobros
+	                             .Include(e => e.CobradoDetail)
+	                             .Where(e => e.CobroId == id)
+	                             .FirstOrDefaultAsync();
 
 			if (cobros == null)
             {
@@ -58,28 +58,46 @@ namespace Samir_API1_P2.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCobros(int id, Cobros cobros)
         {
-			if (!CobrosExists(cobros.CobroId))
-				_context.Cobros.Add(cobros);
-	
-			await _context.SaveChangesAsync();
+            if (id != cobros.CobroId)
+            {
+                return BadRequest();
+            }
 
-			return Ok(cobros);
-		}
+            _context.Entry(cobros).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CobrosExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         // POST: api/Cobros
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cobros>> PostCobros(Cobros cobros)
         {
-          if (_context.Cobros == null)
-          {
-              return Problem("Entity set 'VentasContext.Cobros'  is null.");
-          }
-            _context.Cobros.Add(cobros);
-            await _context.SaveChangesAsync();
+			{
+				if (!CobrosExists(cobros.CobroId))
+					_context.Cobros.Add(cobros);
 
-            return CreatedAtAction("GetCobros", new { id = cobros.CobroId }, cobros);
-        }
+				await _context.SaveChangesAsync();
+
+				return Ok(cobros);
+			}
+		}
 
         // DELETE: api/Cobros/5
         [HttpDelete("{id}")]

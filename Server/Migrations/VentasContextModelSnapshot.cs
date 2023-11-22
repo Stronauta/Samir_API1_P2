@@ -55,6 +55,9 @@ namespace Samir_API1_P2.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Observaciones")
                         .HasColumnType("TEXT");
 
@@ -66,24 +69,21 @@ namespace Samir_API1_P2.Server.Migrations
             modelBuilder.Entity("Samir_API1_P2.Shared.CobrosDetalle", b =>
                 {
                     b.Property<int>("CobradoDetailId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CobradoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("EntradaId")
+                    b.Property<int>("CobroId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("VentaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("esCobrado")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("montoCobrado")
                         .HasColumnType("REAL");
 
                     b.HasKey("CobradoDetailId");
-
-                    b.HasIndex("EntradaId");
 
                     b.ToTable("CobrosDetalle");
                 });
@@ -165,7 +165,9 @@ namespace Samir_API1_P2.Server.Migrations
                 {
                     b.HasOne("Samir_API1_P2.Shared.Cobros", null)
                         .WithMany("CobradoDetail")
-                        .HasForeignKey("EntradaId");
+                        .HasForeignKey("CobradoDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Samir_API1_P2.Shared.Cobros", b =>
