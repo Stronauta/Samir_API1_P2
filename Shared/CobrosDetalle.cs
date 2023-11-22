@@ -7,10 +7,9 @@ namespace Samir_API1_P2.Shared
 	{
 		[Key]
 		public int CobradoDetailId { get; set; }
-		[ForeignKey("CobradoId")]
-		public int CobradoId { get; set; }
 
-		[ForeignKey("VentaId")]
+		public int CobroId { get; set; }
+
 		public int VentaId { get; set; }
 
 		public double montoCobrado { get; set; }

@@ -16,7 +16,5 @@ namespace Samir_API1_P2.Shared
 		public double Monto { get; set; }
 		public double Balance { get; set; }
 
-
-
 	}
 }

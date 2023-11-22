@@ -14,7 +14,9 @@ namespace Samir_API1_P2.Shared
 		public int CobroId { get; set; }
 		public string? Observaciones { get; set; } = string.Empty;
 
-		[ForeignKey("EntradaId")]
+		public DateTime Fecha { get; set; } = DateTime.Now;
+
+		[ForeignKey("CobradoDetailId")]
 		public ICollection<CobrosDetalle> CobradoDetail { get; set; } = new List<CobrosDetalle>();
 	}
 }
